@@ -12,7 +12,16 @@ export default class SearchBar extends Component {
 
     handleChange(event) {
         this.setState({ inputValue: event.target.value });
-        console.log(this.state.inputValue);
+    }
+
+    handleClick = () => {
+        this.props.onConfirm(this.state.inputValue);
+    }
+
+    handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            this.props.onConfirm(this.state.inputValue);
+        }
     }
 
     render() {
@@ -23,9 +32,11 @@ export default class SearchBar extends Component {
                     name='searchInput'
                     placeholder={this.state.placeholder}
                     onChange={this.handleChange.bind(this)}
+                    onKeyPress={this.handleKeyDown}
                     value={this.state.inputValue}>
                 </input>
-                <button className='search-bar_submit'>Send</button>
+                <button className='search-bar_submit'
+                    onClick={this.handleClick}>Go</button>
             </div>
         )
     }
